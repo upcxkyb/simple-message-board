@@ -27,7 +27,7 @@ def message():
         receivers = [config['Mail']['receivers']]
         
         message = MIMEText(content, 'plain', 'utf-8')
-        message['From'] = Header("信控易班工作站", 'utf-8')
+        message['From'] = Header("工科E13层大屏幕留言板", 'utf-8')
         message['To'] =  Header("信息与控制工程学院办公室", 'utf-8')
         
         subject = '信息与控制工程学院-留言板'
@@ -39,10 +39,10 @@ def message():
             smtpObj.login(mail_user,mail_pass)
             smtpObj.sendmail(sender, receivers, message.as_string())
             print ("邮件发送成功")
+            return render_template('sendok.html')
         except smtplib.SMTPException:
             print ("Error: 无法发送邮件")
-
-        return render_template('sendok.html')
+            return render_template('senderror.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
